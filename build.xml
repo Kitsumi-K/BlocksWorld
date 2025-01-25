@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Modélisation attribut-valeur" default="compile" basedir=".">
+
+<property name="projet.sources.dir" value="src"/>
+<property name="projet.bin.dir" value="bin"/>
+<property name="projet.lib.dir" value="lib"/>
+
+<path id="projet.classpath">
+	<fileset dir="${projet.lib.dir}">
+		<include name="*.jar"/>
+	</fileset>
+	<pathelement location="${projet.bin.dir}" />
+</path>
+
+<target name="compile" description="Compilation des classes">
+	<javac srcdir="${projet.sources.dir}" destdir="${projet.bin.dir}" debug="on" optimize="off" deprecation="on" includeantruntime="false">
+		<classpath refid="projet.classpath"/>
+	</javac>
+</target>
+
+
+
+<target name="runTest" description="execution" depends="compile">
+	<java classname="planning.Test" fork="false">
+		<classpath refid="projet.classpath"/>
+	</java>
+</target>
+
+<target name="runMain" description="execution" depends="compile">
+	<java classname="planning.Main" fork="false">
+		<classpath refid="projet.classpath"/>
+	</java>
+</target>
+
+
+
+</project>
