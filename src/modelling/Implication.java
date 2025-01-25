@@ -4,12 +4,12 @@ import java.util.*;
 
 public class Implication implements Constraint{
     
-    private Variable v1;
-    private Set<Variable> S1;
-    private Variable v2;
-    private Set<Variable> S2;
+    protected Variable v1;
+    protected Set<Object> S1;
+    protected Variable v2;
+    protected Set<Object> S2;
 
-    public Implication(Variable v1, Set<Variable> S1, Variable v2, Set<Variable> S2) {
+    public Implication(Variable v1, Set<Object> S1, Variable v2, Set<Object> S2) {
         this.v1 = v1;
         this.S1 = S1;
         this.v2 = v2;
@@ -37,6 +37,11 @@ public class Implication implements Constraint{
             }
             return true;
         }
-        throw new IllegalArgumentException("euh");
+        throw new IllegalArgumentException("Une des variables n'est pas contenu dans l'état");
     }
+
+    @Override
+    public String toString() {
+        return "[ " + v1.getName() + " in " + S1 + " => " + v2.getName() + " in " + S2 + " ]";
+    }  
 }

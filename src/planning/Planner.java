@@ -9,4 +9,5 @@ public interface Planner {
     abstract Map<Variable,Object> getInitialState();
     abstract Set<Action> getActions();
     abstract Goal getGoal();
+    abstract void activateNodeCount();
 }

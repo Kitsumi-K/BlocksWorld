@@ -43,33 +43,32 @@ public class BasicAction implements Action{
     public boolean isApplicable(Map<Variable, Object> state) {
         for (Variable v : precondition.keySet()) {
             if (state.containsKey(v)) {
-                if (!precondition.get(v).equals(state.get(v))) {
+                if (!precondition.get(v).equals(state.get(v))) 
                     return false;
-                }
             }
-            else {
+            else 
                 return false;
-            }
         }
         return true;
     }
     
     public Map<Variable,Object> successor(Map<Variable,Object> state) {
         Map<Variable,Object> res = new HashMap<Variable,Object>();
-        if (state.size() == 0) {
+        if (state.size() == 0)
             return effect;
-        }
-        for (Variable v : state.keySet()) {
+
+        for (Variable v : state.keySet()) 
             res.put(v, state.get(v));
-        }
-        for (Variable v : effect.keySet()) {
+
+        for (Variable v : effect.keySet())
             res.put(v, effect.get(v));
-        }
+
         return res;
     }
     
     @Override
     public String toString() {
-        return "precondition : " + precondition + " effect : " + effect + " cost : " + cost;    }
+        return "[ precondition : " + precondition + " effect : " + effect + " cost : " + cost + " ]";    
+    }
     
 }

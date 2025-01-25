@@ -4,8 +4,8 @@ import java.util.*;
 
 public class DifferenceConstraint implements Constraint{
     
-    private Variable v1;
-    private Variable v2;
+    protected Variable v1;
+    protected Variable v2;
 
     public DifferenceConstraint(Variable v1, Variable v2) {
         this.v1 = v1;
@@ -21,7 +21,7 @@ public class DifferenceConstraint implements Constraint{
 
     public boolean isSatisfiedBy(Map<Variable, Object> map) throws IllegalArgumentException{
         if (!map.containsKey(v1) || !map.containsKey(v2)) {
-            throw new IllegalArgumentException("euh");
+            throw new IllegalArgumentException("Une des variables n'est pas contenu dans l'état");
         }
         return !(map.get(v1).equals(map.get(v2)));       
     }
@@ -32,5 +32,9 @@ public class DifferenceConstraint implements Constraint{
 
     public Variable getV2() {
         return v2;
+    }
+
+    public String toString() {
+        return "[ "+ v1.getName() + " != " + v2.getName() + " ]";
     }
 }

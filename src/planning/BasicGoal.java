@@ -5,7 +5,7 @@ import modelling.*;
 
 public class BasicGoal implements Goal {
     
-    private Map<Variable,Object> instanciation;
+    protected Map<Variable,Object> instanciation;
 
     public BasicGoal(Map<Variable, Object> instanciation) {
         this.instanciation = instanciation;
@@ -29,6 +29,6 @@ public class BasicGoal implements Goal {
     }
 
     public String toString() {
-        return "instantiation : " + instanciation;
+        return "" + instanciation;
     }
 }

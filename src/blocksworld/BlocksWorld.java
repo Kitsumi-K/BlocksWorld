@@ -5,32 +5,16 @@ import modelling.*;
 
 public class BlocksWorld {
     
-    private Integer nbBlock;
-    private Integer nbPile;
-    private Set<Variable> piles;
-    private Set<Variable> blocks;
+    protected Integer nbBlock;
+    protected Integer nbPile;
+
+    protected Set<Variable> variables;
     
     public BlocksWorld(Integer nbBlock, Integer nbPile) {
         this.nbBlock = nbBlock;
         this.nbPile = nbPile;
 
-        Set<Object> blockDomain = new HashSet<>();
-        for (Integer i = 0; i < nbBlock; i++) {
-            blockDomain.add(i);
-        }
-        for (Integer i = 0; i < nbBlock; i++) {
-            Variable v = new Variable("block" + i, blockDomain);
-            blocks.add(v);
-        }
-
-        Set<Object> pileDomain = new HashSet<>();
-        for (Integer i = -1; i >= -nbPile; i--) {
-            pileDomain.add(i);
-        }
-        for (Integer i = -1; i >= -nbPile; i--) {
-            Variable v = new Variable("pile" + (-i), blockDomain);
-            piles.add(v);
-        }
+        createVariables();
     }
 
     public Integer getNbBlock() {
@@ -49,20 +33,31 @@ public class BlocksWorld {
         this.nbPile = nbPile;
     }
 
-    public Set<Variable> getPiles() {
-        return piles;
+
+    private void createVariables() {
+        Set<Object> domainOn;
+        variables = new HashSet<>();
+        
+        Variable block;
+        for (int i = 0; i < nbBlock; i++) {
+            domainOn = new HashSet<>();
+            for (int j = -nbPile; j < nbBlock; j++) {
+                domainOn.add(j);
+            }
+            block = new BooleanVariable("fixed" + i);
+            variables.add(block);
+            domainOn.remove(i);
+            block = new Variable("on" + i, domainOn);
+            variables.add(block);
+        }
+        BooleanVariable pile;
+        for (int i = -nbPile; i < 0; i++) {
+            pile = new BooleanVariable("free" + i);
+            variables.add(pile);
+        }
     }
 
-    public void setPiles(Set<Variable> piles) {
-        this.piles = piles;
-    }
-
-    public Set<Variable> getBlocks() {
-        return blocks;
-    }
-
-    public void setBlocks(Set<Variable> blocks) {
-        this.blocks = blocks;
-    }
-    
+    public Set<Variable> getVariables() {
+        return variables;
+    } 
 }
